@@ -1,6 +1,6 @@
 const http = require("http");
 const app = require("./app");
-const {port} = require("./config/keys");
+const {port} = require("./config/keys") || 8000;
 
 // create server
 const server = http.createServer(app);
