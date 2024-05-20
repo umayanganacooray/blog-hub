@@ -52,7 +52,7 @@ const signin = async (req, res, next) =>{
         next(error);
     }
 
-}
+};
 
 const verifyCode = async (req, res, next) => {
     try{
@@ -86,8 +86,30 @@ const verifyCode = async (req, res, next) => {
     }catch(error){
         next(error);
     }
-}
+};
 
- 
+const verifyUser = async (req, res, next) =>{
+    try{
+        const {email, code} = req.body;
+        const user = await User.findOne({email});
+        if(!user){
+            res.code = 400;
+            throw new Error("User not found");
+        }
 
-module.exports = {signup, signin, verifyCode};
+        if(user.verificationCode !== code){
+            res.code = 400;
+            throw new Error("Invalid code");
+        }
+
+        user.isVerified = true;
+        user.verificationCode = null;
+        await user.save();
+
+        res.status(200).json({code: 200, status: true, message: "User verified successfully"});
+    }catch(error){
+        next(error);
+    }
+}; 
+
+module.exports = {signup, signin, verifyCode, verifyUser};
