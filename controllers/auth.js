@@ -166,4 +166,20 @@ const recoverPassword = async (req, res, next) => {
     }
 };
 
-module.exports = {signup, signin, verifyCode, verifyUser, forgotPasswordCode, recoverPassword};
+const changePassword = async (req, res, next) =>{
+    try{
+        res.json(req.user);
+    }catch(error){
+        next(error);
+    }
+};
+
+module.exports = {
+    signup, 
+    signin, 
+    verifyCode, 
+    verifyUser, 
+    forgotPasswordCode, 
+    recoverPassword,
+    changePassword,
+};
