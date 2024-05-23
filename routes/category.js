@@ -14,4 +14,6 @@ router.delete("/:id", isAuth, isAdmin, idValidator, validate, categoryController
 
 router.get("/", isAuth, idValidator, validate, categoryController.getCategories);
 
+router.get("/:id", isAuth, idValidator, validate, categoryController.getCategory); 
+
 module.exports = router; 
