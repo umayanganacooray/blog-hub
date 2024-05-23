@@ -22,6 +22,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage: storage,
+    fileFilter: (req, file, callback) =>{
+        const mimetype = file.mimetype;
+        if(mimetype === "image/jpg" || mimetype === "image/jpeg" || mimetype === "image/png" || mimetype === "application/pdf"){
+            callback(null, true);
+        }else{
+            callback(new Error("Only .jpg, .jpeg, .png and .pdf formats are allowed."));
+        }
+    }
 });
 
 module.exports = upload;
