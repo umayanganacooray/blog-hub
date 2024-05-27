@@ -1,7 +1,7 @@
 
 const path = require("path"); 
 const {validateExtension} = require("../validators/file");
-const {uploadFileToS3} = require("../utils/awsS3");
+const {uploadFileToS3, signedUrl} = require("../utils/awsS3");
 const {File} = require("../models");
 
 const uploadFile= async(req, res, next) =>{
@@ -39,4 +39,20 @@ const uploadFile= async(req, res, next) =>{
     }
 };
 
-module.exports = {uploadFile};
+const getSignedUrl = async (req, res, next) => {
+    try {
+      const { key } = req.query;
+      const url = await signedUrl(key);
+  
+      res.status(200).json({
+        code: 200,
+        status: true,
+        message: "Get signed url successfully",
+        data: { url },
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+module.exports = {uploadFile, getSignedUrl};
