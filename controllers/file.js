@@ -1,10 +1,10 @@
 
 const path = require("path"); 
 const {validateExtension} = require("../validators/file");
-const {uploadFileToS3, signedUrl} = require("../utils/awsS3");
+const {uploadFileToS3, signedUrl, deleteFileFromS3} = require("../utils/awsS3");
 const {File} = require("../models");
 
-const uploadFile= async(req, res, next) =>{
+const uploadFile= async (req, res, next) => {
     try{
         const {file} = req;
         
@@ -53,6 +53,19 @@ const getSignedUrl = async (req, res, next) => {
     } catch (error) {
       next(error);
     }
-  };
+};
 
-module.exports = {uploadFile, getSignedUrl};
+const deleteFile = async(req, res, next) => {
+    try{
+        const {key} = req.query;
+
+        await deleteFileFromS3(key);
+        await File.findOneAndDelete({key});
+
+        res.status(200).json({code: 200, status: true, message: "File deleted successfully"});
+    }catch(error){
+        next(error);
+    }
+};
+
+module.exports = {uploadFile, getSignedUrl, deleteFile};
