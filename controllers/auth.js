@@ -1,4 +1,4 @@
-const {User} = require("../models");
+const {User, File} = require("../models");
 const hashPassword = require("../utils/hashPassword");
 const comparePassword = require("../utils/comparePassword");
 const generateToken = require("../utils/generateToken");
@@ -201,7 +201,7 @@ const changePassword = async (req, res, next) =>{
 const updateProfile = async (req, res, next) =>{
     try{
         const {_id} = req.user;
-        const {name, email} = req.body;
+        const {name, email, profilePic} = req.body;
 
         const user = await User.findById(_id).select("-password -verificationCode -forgotPasswordCode");
         if(!user){
@@ -217,8 +217,17 @@ const updateProfile = async (req, res, next) =>{
             }
         }
 
+        if(profilePic){
+            const file = await File.findById(profilePic);
+            if(!file){
+                res.code = 404;
+                throw new Error("File not found");
+            }
+        }        
+
         user.name = name ? name : user.name;
         user.email = email ? email : user.email;
+        user.profilePic = profilePic;
 
         if(email){
             user.isVerified = false;
