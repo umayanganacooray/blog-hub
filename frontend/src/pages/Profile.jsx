@@ -5,5 +5,5 @@ const Profile = () => {
         </div>
     );
 };
-Profile
-export default ForgotPassword;
+
+export default Profile;
