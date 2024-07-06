@@ -44,7 +44,7 @@ const Signup = () => {
 
                 <div className="form-group">
                     <label>Email</label>
-                    <input className="form-control" type="email" name="email" placeholder="doe@gmail.com" value={formData.email} onChange={handleChange}/>
+                    <input className="form-control" type="text" name="email" placeholder="doe@gmail.com" value={formData.email} onChange={handleChange}/>
                     {formError.email && <p className="error">{formError.email}</p>}
                 </div>
 
