@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import signupValidator from "../validators/signupValidator";
 
 const initialFormData = {name: "", email: "", password: "", confirmPassword: ""};
@@ -8,12 +9,13 @@ const Signup = () => {
 
     const [formData, setFormData] = useState(initialFormData);
     const [formError, setFormError] = useState(initialFormError);
+    const [loading, setLoading] =useState(false);
 
     const handleChange = (event) => {
         setFormData((prev) => ({...prev, [event.target.name]: event.target.value}));
     }
     
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         const errors = signupValidator({
@@ -26,6 +28,25 @@ const Signup = () => {
         if(errors.name || errors.email || errors.password || errors.confirmPassword){
             setFormError(errors);
         }else{
+            try{
+                setLoading(true);
+
+                // api request
+                const requestBody = {
+                    name: formData.name,
+                    email: formData.email,
+                    password: formData.password
+                }
+
+                const response = await axios.post("http://localhost:8000/api/v1/auth/signup",requestBody);
+                console.log(response);
+                setFormData(initialFormData);
+                setFormError(initialFormError);
+                setLoading(false);
+            }catch(error){
+                setLoading(false);
+                console.log(error.message);
+            }
             setFormError(initialFormError);
         }
         console.log(formData);
@@ -61,7 +82,7 @@ const Signup = () => {
                 </div>
 
                 <div className="form-group">
-                    <input className="button" type="submit" value="Signup" />
+                    <input className="button" type="submit" value={`${loading ? "Saving.." : "Signup"}`} />
                 </div>
             </form>
             
