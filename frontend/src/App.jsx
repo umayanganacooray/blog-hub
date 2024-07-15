@@ -1,4 +1,6 @@
 import {Routes, Route} from "react-router-dom";
+import "react-toastify/ReactToastify.css";
+import {ToastContainer} from "react-toastify";
 import Home from "./pages/Home";
 import PrivateLayout from "./components/Layout/PrivateLayout";
 import PublicLayout from "./components/Layout/PublicLayout";
@@ -11,6 +13,7 @@ import Login from "./pages/Login";
 
 function App() {
   return (
+    <>
       <Routes>
         <Route element={<PrivateLayout />}>
           <Route path="/" element={<Home />} />
@@ -24,6 +27,9 @@ function App() {
            <Route path="login" element={<Login />} />
         </Route>
       </Routes>
+      <ToastContainer />
+    </>
+
   );
 };
 
