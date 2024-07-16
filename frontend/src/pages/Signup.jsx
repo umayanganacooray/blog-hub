@@ -56,7 +56,7 @@ const Signup = () => {
                 const response = error.response;
                 const data = response.data;
                 toast.error(data.message, {
-                    position: toast.POSITION.TOP_RIGHT,
+                    position: "top-right",
                     autoClose: true  
                 })
             }
