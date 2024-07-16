@@ -46,7 +46,7 @@ const signin = async (req, res, next) =>{
 
         const token = generateToken(user);
 
-        res.status(200).json({code: 200, status: true,message: "User signin successful", data: {token}});
+        res.status(200).json({code: 200, status: true,message: "User signin successful", data: {token, user}});
          
     }catch(error){
         next(error);

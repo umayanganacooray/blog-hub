@@ -33,6 +33,10 @@ const Login = () => {
                 // api request
                 const response = await axios.post("/auth/signin",formData);
                 const data = response.data;
+
+                window.localStorage.setItem("blogData", JSON.stringify(data.data));
+                console.log(data)
+
                 toast.success(data.message, {
                     position: "top-right",
                     autoClose: true
