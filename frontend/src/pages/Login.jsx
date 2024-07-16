@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast} from "react-toastify";
 import axios from "../utils/axiosinstance";
 import loginValidator from "../validators/loginValidator";
+import { useNavigate } from "react-router-dom";
 
 const initialFormData = {email: "", password: ""};
 const initialFormError = {email: "", password: ""};
@@ -11,6 +12,8 @@ const Login = () => {
     const [formData, setFormData] = useState(initialFormData);
     const [formError, setFormError] = useState(initialFormError);
     const [loading, setLoading] =useState(false);
+
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         setFormData((prev) => ({...prev, [event.target.name]: event.target.value}));
@@ -44,6 +47,7 @@ const Login = () => {
                 setFormData(initialFormData);
                 setFormError(initialFormError);
                 setLoading(false);
+                navigate("/");
             }catch(error){
                 setLoading(false);
                 const response = error.response;
