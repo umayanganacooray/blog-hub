@@ -11,13 +11,11 @@ const NewCategory = () => {
                     <div className="form-group">
                         <label>Title</label>
                         <input className="form-control" type="text" name="title" placeholder="Technology" />  
-                        {/* {formError.email && <p className="error">{formError.email}</p>} */}
                     </div>
 
                     <div className="form-group">
                         <label>Description</label>
                         <textarea className="form-control" name="desc" placeholder="Lorem ipsum"></textarea> 
-                        {/* {formError.email && <p className="error">{formError.email}</p>} */}
                     </div>
 
                     <div className="from-group">
