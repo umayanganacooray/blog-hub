@@ -1,7 +1,31 @@
+import { useNavigate } from "react-router-dom";
+
 const NewCategory = () => {
+    const navigate = useNavigate();
     return (
         <div>
-            <h2>This is new category page</h2>
+            <button className="button button-block" onClick={() => navigate(-1)}>Go Back</button>
+            <div className="form-container">
+                <form>
+                    <h2 className="table-title">New Category</h2>
+                    <div className="form-group">
+                        <label>Title</label>
+                        <input className="form-control" type="text" name="title" placeholder="Technology" />  
+                        {/* {formError.email && <p className="error">{formError.email}</p>} */}
+                    </div>
+
+                    <div className="form-group">
+                        <label>Description</label>
+                        <textarea className="form-control" name="desc" placeholder="Lorem ipsum"></textarea> 
+                        {/* {formError.email && <p className="error">{formError.email}</p>} */}
+                    </div>
+
+                    <div className="from-group">
+                        <input type="submit" className="button" value="Add" />
+                    </div>
+                </form>
+            </div>
+            
         </div>
     );
 };

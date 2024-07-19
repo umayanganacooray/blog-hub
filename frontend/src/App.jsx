@@ -10,6 +10,8 @@ import Profile from "./pages/Profile";
 import Setting from "./pages/Setting";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import NewCategory from "./pages/category/NewCategory";
+import UpdateCategory from "./pages/category/UpdateCategory";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route element={<PrivateLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="categories" element={<CategoryList />} />
+          <Route path="categories/new-category" element={<NewCategory/>} />
+          <Route path="categories/update-category" element={<UpdateCategory/>} />
           <Route path="posts" element={<PostList />} />
           <Route path="profile" element={<Profile />} />
           <Route path="setting" element={<Setting />} />
